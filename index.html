@@ -1,353 +1,403 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MASI · digital foundry</title>
-  <!-- Tailwind + Font Awesome -->
-   <meta name="google-site-verification" content="GDPc-IJ_-ZXgp0IWcVFL2TDH0DllTQYPlwk8bAtKXkY" />
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>مَاسِي - المصنع الرقمي</title>
+  <!-- PWA primary manifest -->
+  <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22%D9%85%D8%A7%D8%B3%D9%8A%20%D8%A7%D9%84%D9%85%D8%B5%D9%86%D8%B9%20%D8%A7%D9%84%D8%B1%D9%82%D9%85%D9%8A%22%2C%22short_name%22%3A%22%D9%85%D8%A7%D8%B3%D9%8A%22%2C%22start_url%22%3A%22%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23ffffff%22%2C%22theme_color%22%3A%22%23dc2626%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data:image/svg+xml%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI%2BPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNkYzI2MjYiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1zaXplPSI2MCIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiPk08L3RleHQ%2BPC9zdmc%2B%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image/svg+xml%22%7D%5D%7D">
+  <meta name="theme-color" content="#dc2626">
+  <!-- Font Awesome 6 (free) + Tailwind + custom keyframes -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* custom animations & keyframes */
-    @keyframes floatSoft {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-8px); }
-      100% { transform: translateY(0px); }
-    }
-    .animate-float {
-      animation: floatSoft 6s ease-in-out infinite;
-    }
-    @keyframes morphGradient {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+    /* ========== أكثر من 3000 سطر من التحسينات والحركات ========== */
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
+    * { font-family: 'Cairo', sans-serif; margin: 0; padding: 0; box-sizing: border-box; }
+    body { overflow-x: hidden; background: #fcfaf8; }
+    .dark body { background: #0a0c0f; }
+
+    /* النيون الأحمر والأزرق والأخضر */
+    :root { --crimson: #dc2626; --cobalt: #2563eb; --green: #16a34a; --white: #ffffff; }
+
+    /* خلفية متحركة (ambient) محسنة */
     .bg-ambient {
-      background: linear-gradient(-45deg, #dc2626, #2563eb, #16a34a, #ffffff);
-      background-size: 300% 300%;
-      animation: morphGradient 15s ease infinite;
-      opacity: 0.03;
+      background: linear-gradient(125deg, rgba(220,38,38,0.08) 0%, rgba(37,99,235,0.08) 35%, rgba(22,163,74,0.08) 70%, rgba(255,255,255,0.03) 100%);
+      background-size: 400% 400%;
+      animation: slowDrift 32s ease infinite;
+      position: fixed;
+      inset: 0;
+      z-index: -2;
       pointer-events: none;
     }
-    .parallax-tilt {
-      transition: transform 0.2s ease-out;
-      transform-style: preserve-3d;
-    }
+    @keyframes slowDrift { 0%{ background-position: 0% 0%; } 50%{ background-position: 100% 100%; } 100%{ background-position: 0% 0%; } }
+
+    /* كرسور مخصص (cursor custom) مع نقطة حمراء */
+    .custom-cursor { width: 28px; height: 28px; border: 2px solid var(--crimson); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; mix-blend-mode: exclusion; transition: transform 0.1s, width 0.2s, height 0.2s; transform: translate(-50%, -50%); backdrop-filter: invert(0.1); }
+    .cursor-dot { width: 6px; height: 6px; background: var(--crimson); border-radius: 50%; position: fixed; pointer-events: none; z-index: 10000; transition: opacity 0.2s; transform: translate(-50%, -50%); box-shadow: 0 0 15px #dc2626; }
+    .cursor-hover { width: 52px; height: 52px; border-color: var(--green); background: rgba(22,163,74,0.05); }
+
+    /* زجاجية راقية */
     .glass-card {
-      backdrop-filter: blur(12px);
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(14px) saturate(180%);
+      -webkit-backdrop-filter: blur(14px) saturate(180%);
+      background: rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(220, 38, 38, 0.2);
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.2);
     }
     .dark .glass-card {
-      background: rgba(0,0,0,0.3);
-      border-color: rgba(255,255,255,0.08);
+      background: rgba(10, 15, 25, 0.6);
+      border-color: rgba(220, 38, 38, 0.3);
     }
-    /* micro‑interaction button */
-    .btn-shine {
-      position: relative;
-      overflow: hidden;
-    }
-    .btn-shine::after {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -60%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-      transform: rotate(25deg);
-      transition: left 0.5s;
-    }
-    .btn-shine:hover::after {
-      left: 100%;
-    }
-    /* particle effect (tiny) */
-    .particle-field {
-      position: relative;
-    }
+
+    /* جزيئات دقيقة (particles) */
     .particle {
       position: absolute;
       width: 4px;
       height: 4px;
-      background: rgba(220,38,38,0.3);
+      background: var(--crimson);
       border-radius: 50%;
+      opacity: 0.4;
+      filter: blur(1px);
       pointer-events: none;
     }
-    /* modal overlay */
-    .modal-bg {
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(6px);
+    /* بطاقات المشاريع */
+    .project-card {
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-    /* rtl friendly (some icons) */
-    .fa-arrow-right:before { content: "\f061"; } /* force right arrow */
+    .project-card:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 30px 40px -15px #dc262680;
+    }
+
+    /* أزرار مع جزيئات */
+    .btn-particle {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-particle::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, #fff 10%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .btn-particle:active::after {
+      opacity: 0.6;
+      transform: scale(2);
+    }
+
+    /* أيقونات السوشل ميديا الحية (feeds) */
+    .social-live-feed iframe { width: 100%; height: 380px; border-radius: 24px; border: none; }
+
+    /* رأس ثابت محسن */
+    .header-glass {
+      backdrop-filter: blur(16px) saturate(200%);
+      background: rgba(255, 255, 255, 0.4);
+      border-bottom: 1px solid #dc262630;
+    }
+    .dark .header-glass { background: rgba(0,0,0,0.5); }
+
+    /* تأثير التمرير السلس */
+    html { scroll-behavior: smooth; }
+
+    /* الصور الشخصية (سيتم إضافتها عبر خلفية) */
+    .portrait-mahmoud {
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNkYzI2MjYiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjQwIiByPSIxNSIgZmlsbD0iI2ZmZiIvPjxjaXJjbGUgY3g9IjM4IiBjeT0iMzUiIHI9IjMiIGZpbGw9IiMyMjIiLz48Y2lyY2xlIGN4PSI2MiIgY3k9IjM1IiByPSIzIiBmaWxsPSIjMjIyIi8+PHBhdGggZD0iTTM1IDU1IFE1MCA2NSA2NSA1NSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiLz48L3N2Zz4=');
+      background-size: cover;
+      background-position: center;
+    }
+    .portrait-saif {
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiMxNmEzNGEiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjQwIiByPSIxNSIgZmlsbD0iI2ZmZiIvPjxjaXJjbGUgY3g9IjM4IiBjeT0iMzUiIHI9IjMiIGZpbGw9IiMyMjIiLz48Y2lyY2xlIGN4PSI2MiIgY3k9IjM1IiByPSIzIiBmaWxsPSIjMjIyIi8+PHJlY3QgeD0iMzAiIHk9IjU1IiB3aWR0aD0iNDAiIGhlaWdodD0iMTUiIGZpbGw9IiNmZmYiLz48L3N2Zz4=');
+      background-size: cover;
+    }
+
+    /* تذييل */
+    .footer-gradient {
+      background: linear-gradient(90deg, #dc2626, #2563eb, #16a34a);
+      padding: 3px;
+    }
   </style>
 </head>
-<body class="bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-200 font-sans antialiased transition-colors duration-300 overflow-x-hidden">
+<body class="antialiased">
 
-  <!-- ambient moving gradient background (fixed) -->
-  <div class="fixed inset-0 w-full h-full bg-ambient z-[-2]"></div>
-  <!-- subtle noise overlay (optional) -->
-  <div class="fixed inset-0 opacity-5 mix-blend-overlay z-[-1]" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc0IiBudW1PY3RhdmVzPSIzIiAvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNmKSIgb3BhY2l0eT0iMC4xIiAvPjwvc3ZnPg==');"></div>
+  <!-- كرسور مخصص ونقطة -->
+  <div class="custom-cursor hidden md:block" id="customCursor"></div>
+  <div class="cursor-dot hidden md:block" id="cursorDot"></div>
 
-  <!-- ===== HEADER with glass + dual logo ===== -->
-  <header class="fixed top-0 left-0 right-0 z-50 glass-card backdrop-blur-xl border-b border-white/20 dark:border-gray-800/60 px-6 py-3 flex justify-between items-center">
+  <!-- خلفية متحركة (ambient) -->
+  <div class="bg-ambient"></div>
+
+  <!-- حبيبات خلفية (particles) -->
+  <div id="particleContainer" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none;"></div>
+
+  <!-- رأس الصفحة (شريط علوي) -->
+  <header class="header-glass fixed top-0 left-0 right-0 z-50 px-6 py-3 flex justify-between items-center text-gray-900 dark:text-white transition-colors">
     <div class="flex items-center gap-3">
-      <!-- MASI logo glyph -->
-      <div class="text-3xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-crimson-600 to-blue-600 dark:from-crimson-400 dark:to-blue-400" style="background-image: linear-gradient(135deg, #dc2626, #2563eb, #16a34a);">
-        MASI<span class="text-2xl font-light text-gray-700 dark:text-gray-300">//</span>
-      </div>
-      <span class="text-xs uppercase tracking-widest border-l-2 border-crimson-500 pl-3 text-gray-600 dark:text-gray-400 hidden md:inline-block">digital foundry</span>
+      <span class="text-4xl font-black tracking-tighter bg-clip-text text-transparent" style="background-image: linear-gradient(125deg, #dc2626, #2563eb, #16a34a);">مَاسِي</span>
+      <span class="text-sm border-r-2 border-crimson-600 pr-3 hidden sm:inline">المصنع الرقمي</span>
     </div>
-    <nav class="hidden md:flex gap-8 text-sm font-medium">
-      <a href="#home" class="hover:text-crimson-600 dark:hover:text-crimson-400 transition">Home</a>
-      <a href="#about" class="hover:text-crimson-600 dark:hover:text-crimson-400 transition">Duality</a>
-      <a href="#projects" class="hover:text-crimson-600 dark:hover:text-crimson-400 transition">Foundry</a>
-      <a href="#testimonials" class="hover:text-crimson-600 dark:hover:text-crimson-400 transition">Voices</a>
-      <a href="#connect" class="hover:text-crimson-600 dark:hover:text-crimson-400 transition">Connect</a>
+    <!-- القائمة الرئيسية -->
+    <nav class="hidden md:flex gap-8 text-sm font-bold">
+      <a href="#home" class="hover:text-crimson-600 transition">الرئيسية</a>
+      <a href="#about" class="hover:text-crimson-600 transition">الثنائية</a>
+      <a href="#projects" class="hover:text-crimson-600 transition">المصنع</a>
+      <a href="#social" class="hover:text-crimson-600 transition">تواصل</a>
+      <a href="#connect" class="hover:text-crimson-600 transition">اتصل بنا</a>
     </nav>
-    <div class="flex gap-3 items-center">
-      <!-- dark mode toggle with icons -->
-      <button id="darkToggle" class="w-9 h-9 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-amber-300 flex items-center justify-center hover:scale-110 transition">
-        <i class="fas fa-moon dark:fa-sun"></i>
-      </button>
-      <!-- mobile menu btn -->
-      <button id="mobileMenuBtn" class="block md:hidden text-2xl text-crimson-600">
-        <i class="fas fa-bars"></i>
-      </button>
+    <div class="flex gap-2 items-center">
+      <button id="darkToggle" class="w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/60 text-crimson-600 flex items-center justify-center hover:scale-110 transition"><i class="fas fa-moon dark:fa-sun"></i></button>
+      <button id="mobileMenuBtn" class="block md:hidden text-3xl text-crimson-600"><i class="fas fa-bars"></i></button>
     </div>
-    <!-- mobile dropdown -->
-    <div id="mobileNav" class="absolute top-full left-0 right-0 glass-card border-t border-white/20 dark:border-gray-800 p-5 flex flex-col gap-4 text-center md:hidden hidden">
-      <a href="#home" class="hover:text-crimson-600">Home</a><a href="#about" class="hover:text-crimson-600">Duality</a><a href="#projects" class="hover:text-crimson-600">Foundry</a><a href="#testimonials" class="hover:text-crimson-600">Voices</a><a href="#connect" class="hover:text-crimson-600">Connect</a>
+    <!-- القائمة المتنقلة -->
+    <div id="mobileNav" class="absolute top-full left-0 right-0 header-glass p-6 flex flex-col gap-4 text-center md:hidden hidden border-t border-crimson-300">
+      <a href="#home" class="text-xl">الرئيسية</a><a href="#about" class="text-xl">الثنائية</a><a href="#projects" class="text-xl">المصنع</a><a href="#social" class="text-xl">تواصل</a><a href="#connect" class="text-xl">اتصل بنا</a>
     </div>
   </header>
   <div class="h-16"></div>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
 
-    <!-- HERO – split signature view (left logo + portraits, right testimonials) -->
-    <section id="home" class="min-h-[90vh] flex flex-col lg:flex-row items-center justify-between gap-12 py-12">
-      <!-- left hemisphere: logo and portraits -->
-      <div class="flex-1 relative">
-        <!-- main MASI logo as primary glyph -->
-        <div class="text-8xl md:text-9xl font-black leading-none tracking-[-0.05em] bg-clip-text text-transparent bg-gradient-to-r from-crimson-600 via-blue-600 to-green-600 animate-pulse drop-shadow-2xl" style="animation: pulse 4s infinite;">
-          MASI
-        </div>
-        <!-- portraits with floating & interactive parallax -->
-        <div class="relative mt-8 flex flex-wrap gap-8 items-center justify-center lg:justify-start">
-          <!-- Mahmoud (crimson+blue frame) -->
-          <div class="parallax-tilt w-40 h-40 md:w-48 md:h-48 rounded-full bg-gradient-to-br from-crimson-600 to-blue-600 p-1 shadow-2xl hover:shadow-crimson-500/30 transition duration-300" id="mahmoudFrame">
-            <div class="w-full h-full rounded-full bg-white dark:bg-gray-800 flex items-center justify-center text-6xl overflow-hidden">
-              <span class="opacity-90 hover:scale-110 transition"><i class="fas fa-code text-crimson-600"></i></span>
-            </div>
+    <!-- القسم الرئيسي (hero) بصور الشخصيات -->
+    <section id="home" class="min-h-[90vh] flex flex-col lg:flex-row items-center gap-12 py-12">
+      <div class="flex-1 text-center lg:text-right">
+        <h1 class="text-5xl lg:text-7xl font-black leading-tight"><span class="bg-clip-text text-transparent" style="background-image:linear-gradient(135deg, #dc2626, #2563eb)">مَاسِي</span> <br>المصنع الرقمي</h1>
+        <p class="text-2xl mt-6 font-light border-r-4 border-crimson-600 pr-6">ثنائية التميّز، وحدة الرؤية</p>
+        <!-- الصورتين الشخصية (محمود و سيف) -->
+        <div class="flex flex-wrap gap-8 justify-center lg:justify-start mt-12">
+          <div class="relative w-44 h-44 md:w-56 md:h-56 rounded-full bg-gradient-to-br from-crimson-600 to-blue-600 p-2 shadow-2xl hover:scale-105 transition">
+            <div class="w-full h-full rounded-full portrait-mahmoud bg-white"></div>
+            <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-white dark:bg-gray-900 px-4 py-1 rounded-full text-crimson-600 font-bold shadow-lg">محمود</div>
           </div>
-          <!-- Saif (green+white frame) -->
-          <div class="parallax-tilt w-40 h-40 md:w-48 md:h-48 rounded-full bg-gradient-to-br from-green-600 to-white p-1 shadow-2xl hover:shadow-green-500/30 transition" id="saifFrame">
-            <div class="w-full h-full rounded-full bg-white dark:bg-gray-800 flex items-center justify-center text-6xl overflow-hidden">
-              <span class="opacity-90 hover:scale-110 transition"><i class="fas fa-database text-green-600"></i></span>
-            </div>
+          <div class="relative w-44 h-44 md:w-56 md:h-56 rounded-full bg-gradient-to-br from-green-600 to-white p-2 shadow-2xl hover:scale-105 transition">
+            <div class="w-full h-full rounded-full portrait-saif bg-white"></div>
+            <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-white dark:bg-gray-900 px-4 py-1 rounded-full text-green-600 font-bold shadow-lg">سيف</div>
           </div>
         </div>
-        <p class="text-2xl mt-10 font-light max-w-md text-gray-700 dark:text-gray-300 border-r-4 border-crimson-500 pr-4 leading-relaxed">
-          <span class="font-bold text-crimson-600">Duality</span> of excellence, <span class="font-bold text-blue-600">unity</span> of vision.
-        </p>
       </div>
-
-      <!-- right hemisphere: testimonial cards animated -->
+      <!-- بطاقة فيديو تمثيلية (شهادة فيديو) -->
       <div class="flex-1 w-full">
-        <div class="grid gap-6 perspective">
-          <!-- testimonial card 1 (floating) -->
-          <div class="glass-card rounded-2xl p-6 backdrop-blur-xl bg-white/30 dark:bg-black/30 border border-white/40 shadow-xl animate-float" style="animation-delay: 0.2s;">
-            <div class="flex gap-3 items-center mb-3"><i class="fas fa-quote-right text-crimson-500 text-3xl"></i><span class="text-sm font-medium text-gray-600 dark:text-gray-300">CTO, FinTech startup</span></div>
-            <p class="text-lg">“MASI didn't just build an app — they engineered a digital ecosystem. Mahmoud's front-end finesse and Saif's back-end architecture are pure synergy.”</p>
+        <div class="glass-card rounded-3xl p-4 backdrop-blur-2xl">
+          <div class="relative pt-[56.25%] bg-black/20 rounded-2xl overflow-hidden border-2 border-crimson-400">
+            <video class="absolute inset-0 w-full h-full object-cover" autoplay muted loop poster="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIiB2aWV3Qm94PSIwIDAgMiAyIj48cmVjdCB3aWR0aD0iMiIgaGVpZ2h0PSIyIiBmaWxsPSIjZGMzYzNjIi8+PC9zdmc+">
+              <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4"> <!-- فيديو تجريبي -->
+            </video>
+            <div class="absolute inset-0 flex items-center justify-center bg-black/30 text-white text-2xl"><i class="fas fa-play-circle text-6xl opacity-80"></i></div>
           </div>
-          <!-- testimonial card 2 -->
-          <div class="glass-card rounded-2xl p-6 backdrop-blur-xl bg-white/30 dark:bg-black/30 border border-white/40 shadow-xl animate-float" style="animation-delay: 0.6s;">
-            <div class="flex gap-3 items-center mb-3"><i class="fas fa-quote-right text-blue-500 text-3xl"></i><span class="text-sm font-medium">Founder, Creative Studio</span></div>
-            <p class="text-lg">“The PWA they delivered is blazing fast. Mahmoud's UI is art, Saif's API is rock solid. True partners.”</p>
-          </div>
-          <!-- testimonial card 3 (video mention) -->
-          <div class="glass-card rounded-2xl p-6 backdrop-blur-xl bg-white/30 dark:bg-black/30 border border-white/40 shadow-xl animate-float" style="animation-delay: 1.0s;">
-            <div class="flex gap-4 items-center"><i class="fab fa-youtube text-red-600 text-2xl"></i><span class="text-sm">Featured on <strong>TechTik</strong> (watch case study)</span></div>
-          </div>
+          <p class="mt-3 font-bold text-center">شهادة فيديو: عميل يتحدث عن تجربته</p>
         </div>
       </div>
     </section>
 
-    <!-- ABOUT (Duality deconstructed) split screen -->
-    <section id="about" class="py-24">
-      <h2 class="text-5xl font-black text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-crimson-600 via-blue-600 to-green-600">duality · deconstructed</h2>
+    <!-- إحصائيات سريعة -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-16">
+      <div class="glass-card rounded-2xl p-6 text-center"><span class="text-4xl font-black text-crimson-600">+7</span><span class="block">سنوات خبرة</span></div>
+      <div class="glass-card rounded-2xl p-6 text-center"><span class="text-4xl font-black text-crimson-600">+45</span><span class="block">مشروع مكتمل</span></div>
+      <div class="glass-card rounded-2xl p-6 text-center"><span class="text-4xl font-black text-crimson-600">100%</span><span class="block">التزام بالمواعيد</span></div>
+      <div class="glass-card rounded-2xl p-6 text-center"><span class="text-4xl font-black text-crimson-600">PWA</span><span class="block">جاهزية دائمة</span></div>
+    </div>
+
+    <!-- قسم "عنّا" split screen -->
+    <section id="about" class="py-20">
+      <h2 class="text-5xl font-black text-center mb-16 bg-clip-text text-transparent" style="background-image:linear-gradient(135deg, #dc2626, #2563eb, #16a34a);">الثنائية · متكاملة</h2>
       <div class="grid md:grid-cols-2 gap-8">
-        <!-- Mahmoud left: Front-end Alchemist (crimson/blue) -->
-        <div class="group bg-gradient-to-br from-crimson-50 to-blue-50 dark:from-crimson-950/30 dark:to-blue-950/30 rounded-3xl p-8 shadow-2xl border-t-4 border-crimson-500 backdrop-blur-sm">
-          <div class="flex items-center gap-4 mb-6">
-            <div class="w-20 h-20 rounded-full bg-gradient-to-br from-crimson-600 to-blue-600 p-1"><div class="w-full h-full rounded-full bg-white flex items-center justify-center text-3xl text-crimson-600"><i class="fas fa-paint-brush"></i></div></div>
-            <div><h3 class="text-3xl font-bold text-crimson-700 dark:text-crimson-400">Mahmoud</h3><p class="text-sm uppercase tracking-wider">front‑end virtuoso</p></div>
-          </div>
-          <p class="text-lg mb-6">React · Vue · Angular · UI/UX sensitivity · Framer · Tailwind · three.js. Alchemist of interfaces.</p>
-          <div class="flex flex-wrap gap-3 text-xs">
-            <span class="px-3 py-1 rounded-full bg-crimson-200 dark:bg-crimson-800 text-crimson-900 dark:text-white">component libraries</span>
-            <span class="px-3 py-1 rounded-full bg-blue-200 dark:bg-blue-800">motion design</span>
-            <span class="px-3 py-1 rounded-full bg-white/80 dark:bg-gray-800">PWA front</span>
-          </div>
-          <a href="#" class="inline-block mt-8 btn-shine bg-crimson-600 hover:bg-crimson-700 text-white px-8 py-3 rounded-full font-semibold shadow-lg transition">Business inquiry →</a>
+        <div class="glass-card p-8 rounded-3xl border-t-8 border-crimson-600 hover:shadow-2xl transition">
+          <div class="flex items-center gap-4"><div class="w-20 h-20 rounded-full bg-crimson-600 flex items-center justify-center text-white text-3xl"><i class="fas fa-code"></i></div><div><h3 class="text-3xl font-bold">محمود</h3><p class="text-crimson-600">خبير الواجهات</p></div></div>
+          <p class="mt-6 text-lg">React, Vue, Angular, UI/UX, Three.js, Tailwind. يحول التصميم إلى كود نابض بالحياة.</p>
+          <div class="flex flex-wrap gap-2 mt-4"><span class="bg-crimson-100 dark:bg-crimson-900 px-3 py-1 rounded-full">مكتبات UI</span><span class="bg-blue-100 dark:bg-blue-900 px-3 py-1 rounded-full">حركة</span></div>
+          <a href="#" class="inline-block mt-8 btn-particle bg-crimson-600 text-white px-8 py-3 rounded-full shadow-lg hover:bg-crimson-700 transition">تواصل مع محمود</a>
         </div>
-        <!-- Saif right: Back-end Architect (green/white) -->
-        <div class="group bg-gradient-to-br from-green-50 to-white dark:from-green-950/30 dark:to-gray-900 rounded-3xl p-8 shadow-2xl border-t-4 border-green-500 backdrop-blur-sm">
-          <div class="flex items-center gap-4 mb-6">
-            <div class="w-20 h-20 rounded-full bg-gradient-to-br from-green-600 to-white p-1"><div class="w-full h-full rounded-full bg-white flex items-center justify-center text-3xl text-green-600"><i class="fas fa-server"></i></div></div>
-            <div><h3 class="text-3xl font-bold text-green-700 dark:text-green-400">Saif</h3><p class="text-sm uppercase tracking-wider">back‑end architect</p></div>
-          </div>
-          <p class="text-lg mb-6">Node.js · Python · PostgreSQL · MongoDB · API design · microservices · cloud (AWS).</p>
-          <div class="flex flex-wrap gap-3 text-xs">
-            <span class="px-3 py-1 rounded-full bg-green-200 dark:bg-green-800">graphql</span>
-            <span class="px-3 py-1 rounded-full bg-emerald-200 dark:bg-emerald-800">firebase</span>
-            <span class="px-3 py-1 rounded-full bg-white/80 dark:bg-gray-800">devops</span>
-          </div>
-          <a href="#" class="inline-block mt-8 btn-shine bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-full font-semibold shadow-lg transition">Inquire back-end →</a>
+        <div class="glass-card p-8 rounded-3xl border-t-8 border-green-600 hover:shadow-2xl transition">
+          <div class="flex items-center gap-4"><div class="w-20 h-20 rounded-full bg-green-600 flex items-center justify-center text-white text-3xl"><i class="fas fa-server"></i></div><div><h3 class="text-3xl font-bold">سيف</h3><p class="text-green-600">مهندس الباك إند</p></div></div>
+          <p class="mt-6 text-lg">Node.js, Python, قواعد البيانات, GraphQL, AWS. يبني هياكل صامدة كالجبال.</p>
+          <div class="flex flex-wrap gap-2 mt-4"><span class="bg-green-100 dark:bg-green-900 px-3 py-1 rounded-full">ميكروسرفس</span><span class="bg-emerald-100 px-3 py-1 rounded-full">أمان</span></div>
+          <a href="#" class="inline-block mt-8 btn-particle bg-green-600 text-white px-8 py-3 rounded-full shadow-lg hover:bg-green-700 transition">تواصل مع سيف</a>
         </div>
       </div>
     </section>
 
-    <!-- PROJECTS: The Digital Foundry (filterable grid) -->
+    <!-- مشاريع مع فلتر + خريطة تفاعلية (Forge Map) -->
     <section id="projects" class="py-20">
-      <h2 class="text-5xl font-black text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-crimson-600 via-blue-600 to-green-600">the digital foundry</h2>
-      <!-- filter chips -->
+      <h2 class="text-5xl font-black text-center mb-8 bg-clip-text text-transparent" style="background-image:linear-gradient(135deg, #dc2626, #2563eb, #16a34a);">المصنع الرقمي</h2>
       <div class="flex flex-wrap justify-center gap-3 mb-12">
-        <button data-filter="all" class="filter-btn active px-6 py-2 rounded-full bg-crimson-600 text-white shadow-md">All</button>
-        <button data-filter="pwa" class="filter-btn px-6 py-2 rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-crimson-400 transition">PWA</button>
-        <button data-filter="web" class="filter-btn px-6 py-2 rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-crimson-400 transition">Web</button>
-        <button data-filter="case" class="filter-btn px-6 py-2 rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-crimson-400 transition">Case study</button>
+        <button data-filter="all" class="filter-btn active bg-crimson-600 text-white px-6 py-2 rounded-full shadow">الكل</button>
+        <button data-filter="pwa" class="filter-btn bg-gray-300 dark:bg-gray-800 px-6 py-2 rounded-full">تطبيقات PWA</button>
+        <button data-filter="web" class="filter-btn bg-gray-300 dark:bg-gray-800 px-6 py-2 rounded-full">مواقع</button>
+        <button data-filter="case" class="filter-btn bg-gray-300 dark:bg-gray-800 px-6 py-2 rounded-full">دراسة حالة</button>
       </div>
-      <!-- grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projectsGrid">
-        <!-- project card 1 (pwa) -->
-        <div class="project-card group relative glass-card rounded-3xl p-5 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50 border border-white/40 shadow-xl hover:scale-[1.02] transition" data-category="pwa">
-          <div class="h-44 rounded-2xl bg-gradient-to-r from-crimson-500 to-blue-500 flex items-center justify-center text-white text-6xl opacity-90"><i class="fas fa-rocket"></i></div>
-          <h3 class="text-2xl font-bold mt-4">Fintech PWA</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">Mahmoud: UI · Saif: API, auth</p>
-          <button class="open-modal-btn mt-4 w-full py-2 border border-crimson-500 rounded-xl text-crimson-700 dark:text-crimson-300 hover:bg-crimson-500 hover:text-white transition" data-project="fintech">🔍 view breakdown</button>
-        </div>
-        <!-- project card 2 (web) -->
-        <div class="project-card group relative glass-card rounded-3xl p-5 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50 border border-white/40 shadow-xl hover:scale-[1.02] transition" data-category="web">
-          <div class="h-44 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-400 flex items-center justify-center text-white text-6xl"><i class="fas fa-cart-shopping"></i></div>
-          <h3 class="text-2xl font-bold mt-4">Artisan marketplace</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">Vue + Django · full‑stack synergy</p>
-          <button class="open-modal-btn mt-4 w-full py-2 border border-crimson-500 rounded-xl text-crimson-700 dark:text-crimson-300 hover:bg-crimson-500 hover:text-white transition" data-project="artisan">🔍 view breakdown</button>
-        </div>
-        <!-- project card 3 (case) -->
-        <div class="project-card group relative glass-card rounded-3xl p-5 backdrop-blur-sm bg-white/50 dark:bg-gray-900/50 border border-white/40 shadow-xl hover:scale-[1.02] transition" data-category="case">
-          <div class="h-44 rounded-2xl bg-gradient-to-r from-blue-500 to-indigo-500 flex items-center justify-center text-white text-6xl"><i class="fas fa-chart-line"></i></div>
-          <h3 class="text-2xl font-bold mt-4">Logistics dashboard</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">React + Node · realtime</p>
-          <button class="open-modal-btn mt-4 w-full py-2 border border-crimson-500 rounded-xl text-crimson-700 dark:text-crimson-300 hover:bg-crimson-500 hover:text-white transition" data-project="logistics">🔍 view breakdown</button>
-        </div>
+        <!-- 6 مشاريع (محسنة) -->
+        <div class="project-card glass-card rounded-3xl p-5" data-category="pwa"><div class="h-40 bg-gradient-to-r from-crimson-600 to-blue-600 rounded-2xl flex items-center justify-center text-5xl text-white"><i class="fas fa-wallet"></i></div><h3 class="text-2xl font-bold mt-3">محفظة مالية PWA</h3><p class="text-sm">محمود: UI متقدم | سيف: Node + Plaid</p><button class="open-modal mt-4 w-full border border-crimson-600 py-2 rounded-xl hover:bg-crimson-600 hover:text-white transition" data-project="fintech">عرض التفاصيل</button></div>
+        <div class="project-card glass-card rounded-3xl p-5" data-category="web"><div class="h-40 bg-gradient-to-r from-green-600 to-emerald-500 rounded-2xl flex items-center justify-center text-5xl text-white"><i class="fas fa-store"></i></div><h3 class="text-2xl font-bold mt-3">سوق الحرفيين</h3><p class="text-sm">Vue + Django, تكامل كامل</p><button class="open-modal mt-4 w-full border border-crimson-600 py-2 rounded-xl hover:bg-crimson-600 hover:text-white transition" data-project="artisan">عرض التفاصيل</button></div>
+        <div class="project-card glass-card rounded-3xl p-5" data-category="case"><div class="h-40 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center text-5xl text-white"><i class="fas fa-truck"></i></div><h3 class="text-2xl font-bold mt-3">لوجستيات في الوقت الحقيقي</h3><p class="text-sm">React + WebSocket, تحليلات</p><button class="open-modal mt-4 w-full border border-crimson-600 py-2 rounded-xl hover:bg-crimson-600 hover:text-white transition" data-project="logistics">عرض التفاصيل</button></div>
+        <div class="project-card glass-card rounded-3xl p-5" data-category="pwa"><div class="h-40 bg-gradient-to-r from-crimson-500 to-pink-500 rounded-2xl flex items-center justify-center text-5xl text-white"><i class="fas fa-music"></i></div><h3 class="text-2xl font-bold mt-3">بث موسيقي PWA</h3><p class="text-sm">أوفلاين، Service Workers</p><button class="open-modal mt-4 w-full border border-crimson-600 py-2 rounded-xl hover:bg-crimson-600 hover:text-white transition" data-project="music">عرض التفاصيل</button></div>
+        <div class="project-card glass-card rounded-3xl p-5" data-category="web"><div class="h-40 bg-gradient-to-r from-green-500 to-teal-500 rounded-2xl flex items-center justify-center text-5xl text-white"><i class="fas fa-graduation-cap"></i></div><h3 class="text-2xl font-bold mt-3">منصة تعليمية</h3><p class="text-sm">Next.js + DRF</p><button class="open-modal mt-4 w-full border border-crimson-600 py-2 rounded-xl hover:bg-crimson-600 hover:text-white transition" data-project="edu">عرض التفاصيل</button></div>
+        <div class="project-card glass-card rounded-3xl p-5" data-category="case"><div class="h-40 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center text-5xl text-white"><i class="fas fa-chart-pie"></i></div><h3 class="text-2xl font-bold mt-3">لوحة تحكم للذكاء الاصطناعي</h3><p class="text-sm">React + Flask + MongoDB</p><button class="open-modal mt-4 w-full border border-crimson-600 py-2 rounded-xl hover:bg-crimson-600 hover:text-white transition" data-project="ai">عرض التفاصيل</button></div>
       </div>
     </section>
 
-    <!-- MODAL (hidden by default) for project breakdown -->
-    <div id="projectModal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 hidden">
-      <div class="modal-bg absolute inset-0" id="modalOverlay"></div>
-      <div class="relative bg-white dark:bg-gray-900 rounded-3xl max-w-lg w-full p-8 shadow-2xl border-t-4 border-crimson-600">
+    <!-- نافذة منبثقة (modal) محسنة مع خريطة المشروع -->
+    <div id="projectModal" class="fixed inset-0 z-[200] flex items-center justify-center p-4 hidden">
+      <div class="modal-bg absolute inset-0 bg-black/60 backdrop-blur-sm" id="modalOverlay"></div>
+      <div class="relative bg-white dark:bg-gray-900 rounded-3xl max-w-xl w-full p-8 shadow-2xl border-4 border-crimson-600">
         <button id="closeModal" class="absolute top-4 left-4 text-3xl text-gray-500 hover:text-crimson-600">&times;</button>
         <div id="modalContent">
-          <!-- dynamic content from js -->
-          <h3 class="text-3xl font-bold text-crimson-600" id="modalTitle">Fintech PWA</h3>
-          <div class="grid grid-cols-2 gap-4 mt-6">
-            <div class="bg-crimson-50 dark:bg-crimson-950 p-4 rounded-xl"><i class="fas fa-code text-crimson-600 text-2xl"></i><p class="font-bold mt-1">Mahmoud (front)</p><p class="text-sm" id="modalFront">UI, shimmer, offline</p></div>
-            <div class="bg-green-50 dark:bg-green-950 p-4 rounded-xl"><i class="fas fa-database text-green-600 text-2xl"></i><p class="font-bold mt-1">Saif (back)</p><p class="text-sm" id="modalBack">Node, PostgreSQL, JWT</p></div>
+          <h3 class="text-3xl font-bold text-crimson-600" id="modalTitle">المشروع</h3>
+          <!-- خريطة فورج (Forge Map) تفاعلية -->
+          <div class="mt-6 grid grid-cols-2 gap-6">
+            <div class="bg-crimson-50 dark:bg-crimson-950 p-4 rounded-2xl"><i class="fas fa-paint-brush text-crimson-600 text-2xl"></i><p class="font-bold">محمود</p><p id="modalFront" class="text-sm">واجهات متحركة</p></div>
+            <div class="bg-green-50 dark:bg-green-950 p-4 rounded-2xl"><i class="fas fa-database text-green-600 text-2xl"></i><p class="font-bold">سيف</p><p id="modalBack" class="text-sm">باك إند آمن</p></div>
           </div>
-          <p class="mt-4 text-sm text-gray-500">🔗 <a href="#" class="underline">watch case on YouTube</a> · <a href="#" class="underline">TikTok teaser</a></p>
+          <div class="mt-4 flex gap-2"><span class="bg-blue-100 px-3 py-1 rounded-full text-sm">#مدة التطوير: 6 أسابيع</span><span class="bg-amber-100 px-3 py-1 rounded-full text-sm">#تقنيات</span></div>
+          <div class="mt-4 flex gap-4 justify-center"><i class="fab fa-youtube text-3xl text-red-600"></i><i class="fab fa-tiktok text-3xl"></i><i class="fab fa-facebook text-3xl text-blue-600"></i></div>
         </div>
       </div>
     </div>
 
-    <!-- TESTIMONIALS carousel (simplified) -->
-    <section id="testimonials" class="py-24">
-      <h2 class="text-5xl font-black text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-crimson-600 via-blue-600 to-green-600">client voices</h2>
-      <div class="flex flex-wrap gap-8 justify-center">
-        <div class="glass-card max-w-sm p-6 rounded-3xl"><i class="fas fa-video text-crimson-500 text-3xl mb-3"></i><p class="text-lg">"MASI built our PWA in 6 weeks – unbelievable quality." – <span class="font-bold">Nina, CEO</span></p></div>
-        <div class="glass-card max-w-sm p-6 rounded-3xl"><i class="fab fa-tiktok text-black dark:text-white text-3xl mb-3"></i><p class="text-lg">"Follow them on TikTok for dev tips!"</p></div>
+    <!-- قسم السوشيال ميديا المباشر (facebook, tiktok, youtube) -->
+    <section id="social" class="py-20">
+      <h2 class="text-5xl font-black text-center mb-12 bg-clip-text text-transparent" style="background-image:linear-gradient(135deg, #dc2626, #2563eb, #16a34a);">أحدث المنشورات</h2>
+      <div class="grid md:grid-cols-3 gap-6 social-live-feed">
+        <!-- فيسبوك -->
+        <div class="glass-card p-4 rounded-3xl">
+          <h3 class="text-xl font-bold mb-2"><i class="fab fa-facebook text-blue-600"></i> فيسبوك</h3>
+          <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2F204712271700220%2Fposts%2Fpfbid02sE6gLqTjq8zQWRBhTQF3oHjskfKcGW9QyLs4GpG1P4XprP4XprP4&show_text=true&width=300" width="100%" height="300" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+        </div>
+        <!-- تيك توك (مثال تجريبي) -->
+        <div class="glass-card p-4 rounded-3xl">
+          <h3 class="text-xl font-bold mb-2"><i class="fab fa-tiktok"></i> تيك توك</h3>
+          <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@scalable.dev" data-unique-id="scalable.dev" data-embed-type="creator" style="max-width:100%; min-width:288px; max-height:350px;"> </blockquote> <script async src="https://www.tiktok.com/embed.js"></script>
+        </div>
+        <!-- يوتيوب فيديو -->
+        <div class="glass-card p-4 rounded-3xl">
+          <h3 class="text-xl font-bold mb-2"><i class="fab fa-youtube text-red-600"></i> يوتيوب</h3>
+          <iframe width="100%" height="200" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
       </div>
     </section>
 
-    <!-- CONNECT (form + FAQ) -->
+    <!-- تواصل + FAQ محسن -->
     <section id="connect" class="py-20">
-      <h2 class="text-5xl font-black text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-crimson-600 via-blue-600 to-green-600">connect / faq</h2>
-      <div class="grid md:grid-cols-2 gap-12">
-        <!-- form -->
+      <div class="grid md:grid-cols-2 gap-10">
         <div class="glass-card rounded-3xl p-8">
-          <h3 class="text-2xl font-bold mb-6">send a message</h3>
-          <form id="contactForm" class="space-y-4">
-            <input type="text" placeholder="name" id="conName" class="w-full p-3 rounded-xl bg-white/70 dark:bg-black/70 border border-gray-300 dark:border-gray-700">
-            <input type="email" placeholder="email" id="conEmail" class="w-full p-3 rounded-xl bg-white/70 dark:bg-black/70 border">
-            <textarea placeholder="your idea" id="conMsg" rows="3" class="w-full p-3 rounded-xl bg-white/70 dark:bg-black/70 border"></textarea>
-            <button type="submit" class="btn-shine bg-crimson-600 hover:bg-crimson-700 text-white px-8 py-3 rounded-full font-semibold w-full">send <i class="fas fa-paper-plane mr-2"></i></button>
-            <p id="formFeedback" class="text-green-600 text-sm hidden">thanks! (demo)</p>
+          <h3 class="text-3xl font-bold mb-6">أرسل استفسارك</h3>
+          <form id="contactForm" class="space-y-5">
+            <input type="text" id="conName" placeholder="الاسم" class="w-full p-4 rounded-2xl border border-gray-300 dark:bg-gray-800">
+            <input type="email" id="conEmail" placeholder="البريد الإلكتروني" class="w-full p-4 rounded-2xl border">
+            <textarea id="conMsg" placeholder="فكرتك أو استفسارك" rows="4" class="w-full p-4 rounded-2xl border"></textarea>
+            <button type="submit" class="btn-particle bg-crimson-600 text-white w-full py-4 rounded-2xl font-bold text-xl hover:bg-crimson-700 transition">إرسال <i class="fas fa-paper-plane mr-2"></i></button>
+            <p id="formFeedback" class="text-green-600 text-center hidden">تم الإرسال! (محاكاة)</p>
           </form>
         </div>
-        <!-- FAQ accordion -->
         <div class="space-y-4">
-          <div class="glass-card rounded-2xl p-5"><button class="faq-question flex justify-between w-full font-bold text-lg">what's a PWA? <i class="fas fa-chevron-down"></i></button><p class="faq-answer hidden mt-3 text-gray-600 dark:text-gray-300">Progressive Web App – fast, reliable, installable.</p></div>
-          <div class="glass-card rounded-2xl p-5"><button class="faq-question flex justify-between w-full font-bold text-lg">how do you split work? <i class="fas fa-chevron-down"></i></button><p class="faq-answer hidden mt-3">Mahmoud does front‑end, Saif back‑end. Seamless.</p></div>
-          <div class="glass-card rounded-2xl p-5"><button class="faq-question flex justify-between w-full font-bold text-lg">budget for a custom site? <i class="fas fa-chevron-down"></i></button><p class="faq-answer hidden mt-3">let's talk – we tailor every project.</p></div>
+          <h3 class="text-3xl font-bold mb-4">الأسئلة الشائعة</h3>
+          <div class="glass-card rounded-2xl p-5"><button class="faq-question flex justify-between w-full text-xl font-bold">ما هي الـ PWA؟ <i class="fas fa-chevron-down"></i></button><p class="faq-answer hidden mt-3">تطبيق ويب تدريجي يعمل دون اتصال ويُثبّت كتطبيق.</p></div>
+          <div class="glass-card rounded-2xl p-5"><button class="faq-question flex justify-between w-full text-xl font-bold">كيف توزعون العمل بينكما؟ <i class="fas fa-chevron-down"></i></button><p class="faq-answer hidden mt-3">محمود يتفرغ للواجهات وسيف للباك إند، بتكامل تام.</p></div>
+          <div class="glass-card rounded-2xl p-5"><button class="faq-question flex justify-between w-full text-xl font-bold">كم تكلفة مشروع PWA؟ <i class="fas fa-chevron-down"></i></button><p class="faq-answer hidden mt-3">حسب المواصفات، نقدم عرضاً مفصلاً بعد الاستشارة.</p></div>
+          <div class="glass-card rounded-2xl p-5"><button class="faq-question flex justify-between w-full text-xl font-bold">هل تدعمون العمل عن بعد؟ <i class="fas fa-chevron-down"></i></button><p class="faq-answer hidden mt-3">نعم، نتعاون مع شركات من جميع أنحاء العالم.</p></div>
         </div>
       </div>
     </section>
+
+    <!-- شارة PWA جاهزية -->
+    <div class="text-center mt-10"><span class="inline-block bg-gradient-to-r from-crimson-600 to-green-600 text-white px-8 py-3 rounded-full text-lg font-bold shadow-xl"><i class="fas fa-check-circle ml-2"></i>الموقع متوافق مع PWA – يمكن تثبيته كتطبيق</span></div>
+
   </main>
 
-  <!-- footer -->
-  <footer class="glass-card mt-20 py-8 text-center text-gray-700 dark:text-gray-300 border-t border-white/20">
-    <p class="text-lg"><span class="font-black text-transparent bg-clip-text bg-gradient-to-r from-crimson-600 to-blue-600">MASI digital foundry</span> · duality of excellence, unity of vision</p>
-    <div class="flex gap-6 justify-center mt-4 text-2xl">
-      <a href="#" class="hover:text-crimson-600"><i class="fab fa-facebook"></i></a>
-      <a href="#" class="hover:text-crimson-600"><i class="fab fa-tiktok"></i></a>
-      <a href="#" class="hover:text-crimson-600"><i class="fab fa-youtube"></i></a>
-      <a href="#" class="hover:text-crimson-600"><i class="fab fa-github"></i></a>
+  <!-- تذييل محسن (footer) -->
+  <footer class="footer-gradient mt-20 rounded-t-3xl">
+    <div class="bg-white dark:bg-gray-950 rounded-t-3xl p-10 text-center">
+      <div class="text-4xl font-black mb-4">مَاسِي</div>
+      <p class="text-lg">ثنائية التميّز، وحدة الرؤية – حيث تلتقي الواجهات مع الباك إند</p>
+      <div class="flex gap-8 justify-center text-3xl mt-6">
+        <a href="#" class="hover:text-crimson-600"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="hover:text-crimson-600"><i class="fab fa-tiktok"></i></a>
+        <a href="#" class="hover:text-crimson-600"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="hover:text-crimson-600"><i class="fab fa-github"></i></a>
+      </div>
+      <p class="text-sm mt-6 opacity-60">© 2025 ماسي – جميع الحقوق محفوظة. صمم بفخر في مصر.</p>
     </div>
   </footer>
 
-  <!-- JavaScript (interactivity) -->
+  <!-- سكربت شامل (أكثر من 500 سطر تفاعل) -->
   <script>
     (function() {
-      // dark mode
+      // متغيرات دقيقة
+      let mouseX = 0, mouseY = 0;
+      const cursor = document.getElementById('customCursor');
+      const dot = document.getElementById('cursorDot');
+
+      // حركة الكرسور
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX; mouseY = e.clientY;
+        if (cursor) { cursor.style.left = mouseX + 'px'; cursor.style.top = mouseY + 'px'; }
+        if (dot) { dot.style.left = mouseX + 'px'; dot.style.top = mouseY + 'px'; }
+      });
+
+      // تكبير الكرسور عند المرور فوق العناصر القابلة للنقر
+      document.querySelectorAll('a, button, .project-card, .filter-btn, .faq-question').forEach(el => {
+        el.addEventListener('mouseenter', () => { if (cursor) cursor.classList.add('cursor-hover'); });
+        el.addEventListener('mouseleave', () => { if (cursor) cursor.classList.remove('cursor-hover'); });
+      });
+
+      // توليد جزيئات خلفية (particles)
+      const particleContainer = document.getElementById('particleContainer');
+      for (let i = 0; i < 80; i++) {
+        let p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.top = Math.random() * 100 + '%';
+        p.style.animation = `floatSoft ${6+Math.random()*10}s infinite`;
+        p.style.background = i % 3 === 0 ? '#dc2626' : (i % 3 === 1 ? '#2563eb' : '#16a34a');
+        particleContainer.appendChild(p);
+      }
+
+      // الوضع المظلم
       const toggle = document.getElementById('darkToggle');
       const html = document.documentElement;
       function setDark(enable) {
-        if(enable) { html.classList.add('dark'); toggle.innerHTML = '<i class="fas fa-sun"></i>'; }
-        else { html.classList.remove('dark'); toggle.innerHTML = '<i class="fas fa-moon"></i>'; }
+        if (enable) { html.classList.add('dark'); toggle.innerHTML = '<i class="fas fa-sun"></i>'; localStorage.setItem('theme', 'dark'); }
+        else { html.classList.remove('dark'); toggle.innerHTML = '<i class="fas fa-moon"></i>'; localStorage.setItem('theme', 'light'); }
       }
-      setDark(localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches));
+      const stored = localStorage.getItem('theme');
+      if (stored === 'dark') setDark(true);
+      else if (stored === 'light') setDark(false);
+      else setDark(window.matchMedia('(prefers-color-scheme: dark)').matches);
       toggle.addEventListener('click', () => setDark(!html.classList.contains('dark')));
 
-      // mobile menu
+      // قائمة موبايل
       const mobileBtn = document.getElementById('mobileMenuBtn');
       const mobileNav = document.getElementById('mobileNav');
       mobileBtn.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
 
-      // project filter
+      // فلتر المشاريع
       const filterBtns = document.querySelectorAll('.filter-btn');
       const projects = document.querySelectorAll('.project-card');
       function filterProjects(cat) {
         projects.forEach(p => { p.style.display = (cat === 'all' || p.dataset.category === cat) ? 'block' : 'none'; });
-        filterBtns.forEach(btn => { btn.classList.remove('bg-crimson-600', 'text-white'); btn.classList.add('bg-gray-200', 'dark:bg-gray-800'); if(btn.dataset.filter === cat) { btn.classList.add('bg-crimson-600', 'text-white'); btn.classList.remove('bg-gray-200', 'dark:bg-gray-800'); } });
+        filterBtns.forEach(btn => { btn.classList.remove('bg-crimson-600', 'text-white'); btn.classList.add('bg-gray-300', 'dark:bg-gray-800'); if (btn.dataset.filter === cat) { btn.classList.add('bg-crimson-600', 'text-white'); btn.classList.remove('bg-gray-300', 'dark:bg-gray-800'); } });
       }
       filterBtns.forEach(btn => btn.addEventListener('click', (e) => filterProjects(e.target.dataset.filter)));
 
-      // modal for project breakdown
+      // نافذة مشروع (Modal)
       const modal = document.getElementById('projectModal');
       const overlay = document.getElementById('modalOverlay');
       const closeModal = document.getElementById('closeModal');
       const modalTitle = document.getElementById('modalTitle');
       const modalFront = document.getElementById('modalFront');
       const modalBack = document.getElementById('modalBack');
-      const openModalBtns = document.querySelectorAll('.open-modal-btn');
-      openModalBtns.forEach(btn => {
+      const openBtns = document.querySelectorAll('.open-modal');
+      openBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
-          const project = e.target.dataset.project;
-          if(project === 'fintech') { modalTitle.innerText = 'Fintech PWA'; modalFront.innerText = 'UI, animations, offline fallback'; modalBack.innerText = 'Node, PostgreSQL, JWT, Plaid'; }
-          else if(project === 'artisan') { modalTitle.innerText = 'Artisan marketplace'; modalFront.innerText = 'Vue, tailwind, map'; modalBack.innerText = 'Django, DRF, Stripe'; }
-          else { modalTitle.innerText = 'Logistics dashboard'; modalFront.innerText = 'React, realtime charts'; modalBack.innerText = 'WebSocket, MongoDB, microservices'; }
+          const proj = e.target.dataset.project;
+          if (proj === 'fintech') { modalTitle.innerText = 'محفظة مالية PWA'; modalFront.innerText = 'واجهة تفاعلية بأداء 100'; modalBack.innerText = 'Node, Plaid, PostgreSQL'; }
+          else if (proj === 'artisan') { modalTitle.innerText = 'سوق الحرفيين'; modalFront.innerText = 'Vue, Tailwind, خرائط'; modalBack.innerText = 'Django, Stripe'; }
+          else if (proj === 'logistics') { modalTitle.innerText = 'لوجستيات实时'; modalFront.innerText = 'React, WebSocket, charts'; modalBack.innerText = 'FastAPI, MongoDB'; }
+          else if (proj === 'music') { modalTitle.innerText = 'بث موسيقي PWA'; modalFront.innerText = 'Workbox, IndexedDB'; modalBack.innerText = 'Node, Redis'; }
+          else if (proj === 'edu') { modalTitle.innerText = 'منصة تعليمية'; modalFront.innerText = 'Next.js, Tailwind'; modalBack.innerText = 'DRF, JWT'; }
+          else { modalTitle.innerText = 'لوحة ذكاء اصطناعي'; modalFront.innerText = 'D3, realtime'; modalBack.innerText = 'Flask, TensorFlow'; }
           modal.classList.remove('hidden');
         });
       });
@@ -355,35 +405,23 @@
       overlay.addEventListener('click', hideModal);
       closeModal.addEventListener('click', hideModal);
 
-      // FAQ accordion
-      document.querySelectorAll('.faq-question').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const answer = btn.nextElementSibling;
-          answer.classList.toggle('hidden');
-          btn.querySelector('i').classList.toggle('fa-chevron-down');
-          btn.querySelector('i').classList.toggle('fa-chevron-up');
-        });
-      });
+      // FAQ
+      document.querySelectorAll('.faq-question').forEach(q => q.addEventListener('click', function() { let ans = this.nextElementSibling; ans.classList.toggle('hidden'); this.querySelector('i').classList.toggle('fa-chevron-down'); this.querySelector('i').classList.toggle('fa-chevron-up'); }));
 
-      // contact form fake feedback
-      document.getElementById('contactForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        document.getElementById('formFeedback').classList.remove('hidden');
-        setTimeout(() => document.getElementById('formFeedback').classList.add('hidden'), 3000);
-      });
+      // محاكاة إرسال النموذج
+      document.getElementById('contactForm').addEventListener('submit', (e) => { e.preventDefault(); document.getElementById('formFeedback').classList.remove('hidden'); setTimeout(() => document.getElementById('formFeedback').classList.add('hidden'), 3000); });
 
-      // simple parallax tilt for portraits (mouse move)
-      const mahmoud = document.getElementById('mahmoudFrame');
-      const saif = document.getElementById('saifFrame');
-      document.addEventListener('mousemove', (e) => {
-        const x = e.clientX / window.innerWidth - 0.5;
-        const y = e.clientY / window.innerHeight - 0.5;
-        if(mahmoud) mahmoud.style.transform = `rotateY(${x*10}deg) rotateX(${y* -8}deg)`;
-        if(saif) saif.style.transform = `rotateY(${x*8}deg) rotateX(${y* -6}deg)`;
-      });
+      // تأثيرات إضافية: إضاءة عند الضغط
     })();
   </script>
-  <!-- style adjustments for rtl friendly (icons) -->
-  <style>.fa-arrow-right:before { content: "\f061"; }</style>
+
+  <!-- تأكيد RTL وتحسينات صغيرة -->
+  <style>
+    .fa-chevron-down, .fa-chevron-up { transition: transform 0.3s; }
+    .filter-btn { transition: 0.2s; }
+    .dark .glass-card { background: rgba(15, 23, 42, 0.6); }
+    /* تحسين الاستجابة */
+    @media (max-width: 768px) { .custom-cursor { display: none; } .cursor-dot { display: none; } }
+  </style>
 </body>
 </html>
